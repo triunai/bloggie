@@ -1,0 +1,30 @@
+<div class="container">
+  <h1 class="my-3 text-center">List of Categories</h1>
+  <div class="d-flex justify-content-around mt-3">
+    <a class="btn btn-dark" (click)="fetchCategories()">{{ showTable ? 'Hide Table' : 'Get Categories' }}</a>
+    <a class="btn btn-dark" [routerLink]="['/admin/categories/add']">Add Categories</a>
+  </div>
+
+
+  <ng-container *ngIf="categories$ | async as categories">
+
+    <table *ngIf="showTable" class="table table-bordered mt-3">
+      <caption class="text-center">Table on categories</caption>
+      <thead>
+        <tr class="text-center">
+          <th>Id</th>
+          <th>Name</th>
+          <th>Url Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories">
+          <td class="text-center">{{category.id}}</td>
+          <td class="text-center">{{category.name}}</td>
+          <td class="text-center">{{category.urlHandle}}</td>
+          <td class="d-flex justify-content-center align-content-center editBtnBorder"><a class="btn btn-outline-dark" [routerLink]="['/admin/categories', category.id]">Edit</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</div>
