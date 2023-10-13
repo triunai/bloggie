@@ -18,8 +18,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CodePulseConnectionString")); //passing the string 
 });
 
-//injecting service program cs
+// injecting service program cs ensure its before the app, check its pattern implementation if youre unsure, usually placed before the app.build
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
 
 
 var app = builder.Build();
