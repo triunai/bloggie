@@ -3347,11 +3347,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Khumeren\\Desktop\\UDEMY\\Bloggie\\API\\CodePulse.API\\CodePulse.API.csproj",
+      "projectUniqueName": "C:\\Users\\Khumeren\\Source\\Repos\\bloggie\\CodePulse.API.csproj",
       "projectName": "CodePulse.API",
-      "projectPath": "C:\\Users\\Khumeren\\Desktop\\UDEMY\\Bloggie\\API\\CodePulse.API\\CodePulse.API.csproj",
+      "projectPath": "C:\\Users\\Khumeren\\Source\\Repos\\bloggie\\CodePulse.API.csproj",
       "packagesPath": "C:\\Users\\Khumeren\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Khumeren\\Desktop\\UDEMY\\Bloggie\\API\\CodePulse.API\\obj\\",
+      "outputPath": "C:\\Users\\Khumeren\\Source\\Repos\\bloggie\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Khumeren\\AppData\\Roaming\\NuGet\\NuGet.Config",
