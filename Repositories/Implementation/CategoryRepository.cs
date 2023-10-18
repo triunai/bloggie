@@ -1,4 +1,4 @@
-﻿using CodePulse.API.Data;
+using CodePulse.API.Data;
 using CodePulse.API.Models.Domain;
 using CodePulse.API.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +25,7 @@ namespace CodePulse.API.Repositories.Implementation
             return await dbContext.Categories.ToListAsync();
         }
 
-        public async Task<Categories?> GetSingleCategory(Guid Id) // <------ Added nullable operator to ensure return is safe
+        public async Task<Categories?> GetCategoryById(Guid Id) // <------ Added nullable operator to ensure return is safe
         {
             return await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == Id);
         }

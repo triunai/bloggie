@@ -4,6 +4,7 @@ using CodePulse.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodePulse.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231016050134_UpdateSchema")]
+    partial class UpdateSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace CodePulse.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("BlogPostCategories", b =>
-                {
-                    b.Property<Guid>("BlogPostsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CategoriesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("BlogPostsId", "CategoriesId");
-
-                    b.HasIndex("CategoriesId");
-
-                    b.ToTable("BlogPostCategories");
-                });
 
             modelBuilder.Entity("CodePulse.API.Models.Domain.BlogPost", b =>
                 {
@@ -46,6 +34,9 @@ namespace CodePulse.API.Migrations
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("CategoriesId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -75,6 +66,8 @@ namespace CodePulse.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoriesId");
+
                     b.ToTable("BlogPost");
                 });
 
@@ -97,19 +90,16 @@ namespace CodePulse.API.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("BlogPostCategories", b =>
+            modelBuilder.Entity("CodePulse.API.Models.Domain.BlogPost", b =>
                 {
-                    b.HasOne("CodePulse.API.Models.Domain.BlogPost", null)
-                        .WithMany()
-                        .HasForeignKey("BlogPostsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CodePulse.API.Models.Domain.Categories", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("BlogPosts")
+                        .HasForeignKey("CategoriesId");
+                });
+
+            modelBuilder.Entity("CodePulse.API.Models.Domain.Categories", b =>
+                {
+                    b.Navigation("BlogPosts");
                 });
 #pragma warning restore 612, 618
         }

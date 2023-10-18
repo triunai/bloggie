@@ -1,4 +1,4 @@
-﻿using CodePulse.API.Models.Domain;
+using CodePulse.API.Models.Domain;
 namespace CodePulse.API.Repositories.Interface
 {
     public interface ICategoryRepository
@@ -12,7 +12,7 @@ namespace CodePulse.API.Repositories.Interface
 
         // no need to use IEnumerable because we are dealing with a single response
         // will return a category or return null
-        Task<Categories?> GetSingleCategory(Guid Id);
+        Task<Categories?> GetCategoryById(Guid Id);
 
         // will return an updated object or null
         Task<Categories?> UpdateAsync(Categories newCategory);

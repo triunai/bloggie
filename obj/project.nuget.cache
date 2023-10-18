@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "k68ITQ4aSHrA8hXb2D2DANMmi0vSQI/oCbQQPVNWGYBbeWd0M/jmLDAuzSEUMGhxOWmL0g3BKvDWCxYpIVrNtA==",
+  "dgSpecHash": "SkDVI6TbOGIY60a6zYupF9QrLybjKAOmZbfhWIqxjbgiDBFLH5uLYKeWms9pqAeJrsiZKMU06ZDWaTFg1QOqXA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Khumeren\\Source\\Repos\\bloggie\\CodePulse.API.csproj",
+  "projectFilePath": "C:\\Users\\Khumeren\\source\\repos\\bloggie\\CodePulse.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Khumeren\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Khumeren\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

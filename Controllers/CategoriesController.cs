@@ -85,7 +85,7 @@ namespace CodePulse.API.Controllers
         [HttpGet("{Id:guid}")]
         public async Task<IActionResult> GetCategory(Guid Id)
         {
-            var existingCategory = await categoryRepository.GetSingleCategory(Id);
+            var existingCategory = await categoryRepository.GetCategoryById(Id);
 
             if(existingCategory is null)
             {

@@ -13,17 +13,22 @@ namespace CodePulse.API.Controllers
   public class BlogPostController : ControllerBase
   {
 
-    
+
     //private readonly fields
     private readonly IBlogPostRepository blogpostRepository;
+    private readonly ICategoryRepository categoryRepository;
 
-    public BlogPostController(IBlogPostRepository blogpostRepository) // <-- inject contract here to use repository pattern
+    public BlogPostController(
+      IBlogPostRepository blogpostRepository,
+      ICategoryRepository categoryRepository
+      ) // <-- inject contract here to use repository pattern
     {
       this.blogpostRepository = blogpostRepository;
+      this.categoryRepository = categoryRepository;
     }
     // POST: [apiBaseUrl]/api/blogposts
     [HttpPost]
-    public async Task<IActionResult> CreateBlogPost ([FromBody]CreateBlogPostRequestDto request)
+    public async Task<IActionResult> CreateBlogPost([FromBody] CreateBlogPostRequestDto request)
     {
       // Inline Validation (Optional but recommended)
       if (string.IsNullOrEmpty(request.Title) || string.IsNullOrEmpty(request.ShortDescription))
@@ -48,8 +53,21 @@ namespace CodePulse.API.Controllers
           UrlHandle = request.UrlHandle,
           PublishedDate = request.PublishedDate,
           Author = request.Author,
-          IsVisible = request.IsVisible
+          IsVisible = request.IsVisible,
+          Categories = new List<Categories>(),
         };
+
+        // write loop to iterate through cateogories variable
+        foreach (var categoryId in request.Categories)
+        {
+          var existingCategory = await categoryRepository.GetCategoryById(categoryId);
+          if (existingCategory != null)
+          {
+            blogPost.Categories.Add(existingCategory);
+          };
+        }
+
+
 
         // use repository to create, dont expose db context here
         // automatically adds and saves it
@@ -70,7 +88,14 @@ namespace CodePulse.API.Controllers
             UrlHandle = request.UrlHandle,
             PublishedDate = request.PublishedDate,
             Author = request.Author,
-            IsVisible = request.IsVisible
+            IsVisible = request.IsVisible,
+
+            Categories = blogPost.Categories.Select(x => new CategoryDto
+            {
+              Id = x.Id,
+              Name = x.Name,
+              UrlHandle = x.UrlHandle,
+            }).ToList(),
           };
 
           return Ok(abstractedResponse); //200 success
@@ -83,12 +108,15 @@ namespace CodePulse.API.Controllers
       return Unauthorized(request);
     }
 
+
     // GET: [apiBaseUrl]/api/blogposts
     [HttpGet]
     public async Task<IActionResult> GetAllBlogPosts()
     {
       // fetch categories first using repo method
       var blogposts = await blogpostRepository.GetAllBlogpostsAsync();
+
+
 
 
       // instantize an empty list to hold the response data from ur async method
@@ -107,13 +135,22 @@ namespace CodePulse.API.Controllers
           UrlHandle = blogPost.UrlHandle,
           PublishedDate = blogPost.PublishedDate,
           Author = blogPost.Author,
-          IsVisible = blogPost.IsVisible
+          IsVisible = blogPost.IsVisible,
+
+          Categories = blogPost.Categories.Select(x => new CategoryDto
+          {
+            Id = x.Id,
+            Name = x.Name,
+            UrlHandle = x.UrlHandle,
+          }).ToList(),
 
         });
       }
 
-      //return the response
+      //return the responsei 
       return Ok(response);
     }
+
+    //[HttpGet("{Id:guid}")]
   }
 }

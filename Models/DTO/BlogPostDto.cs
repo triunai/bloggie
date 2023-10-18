@@ -11,5 +11,6 @@ namespace CodePulse.API.Models.DTO
     public DateTime PublishedDate { get; set; }
     public string Author { get; set; }
     public bool IsVisible { get; set; } //if the blog is visible to the public or not
+    public List<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
   }
 }
