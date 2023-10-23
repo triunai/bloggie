@@ -152,5 +152,39 @@ namespace CodePulse.API.Controllers
     }
 
     //[HttpGet("{Id:guid}")]
+    // GET : {apiBaseUrl}/api/blogposts/{id}
+
+    [HttpGet("{Id:guid}")] // removed space could be error?
+    public async Task <IActionResult> GetBlogpost(Guid Id)
+    {
+      var existingBlogPost = await blogpostRepository.GetBlogPostById(Id);
+
+      if(existingBlogPost is null)
+      {
+        return NotFound("This id couldnt be found in blogpost tables");
+      };
+      // initialize dto object to store data
+      var response = new BlogPostDto
+      {
+        Id = existingBlogPost.Id,
+        Title = existingBlogPost.Title,
+        ShortDescription = existingBlogPost.ShortDescription,
+        Content = existingBlogPost.Content,
+        FeaturedImageUrl = existingBlogPost.FeaturedImageUrl,
+        UrlHandle = existingBlogPost.UrlHandle,
+        PublishedDate = existingBlogPost.PublishedDate,
+        Author = existingBlogPost.Author,
+        IsVisible = existingBlogPost.IsVisible,
+
+        Categories = existingBlogPost.Categories.Select(x => new CategoryDto
+        {
+          Id = x.Id,
+          Name = x.Name,
+          UrlHandle = x.UrlHandle,
+        }).ToList(),
+      };
+
+      return Ok(response);
+      }
+    }
   }
-}

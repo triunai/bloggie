@@ -9,5 +9,6 @@ namespace CodePulse.API.Repositories.Interface
 
     // use IEnumerable data type to ensure data is read only, and only executed once it iterates over everything
     Task<IEnumerable<BlogPost>> GetAllBlogpostsAsync();
+    Task<BlogPost?> GetBlogPostById(Guid Id); // not using the model or dto cuz we want a singular response based on its ID
   }
 }

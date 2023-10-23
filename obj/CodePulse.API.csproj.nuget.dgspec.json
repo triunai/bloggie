@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Khumeren\\source\\repos\\bloggie\\CodePulse.API.csproj": {}
+    "C:\\Users\\Khumeren\\source\\repos\\bloggie2.0(18-10-23)\\CodePulse.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Khumeren\\source\\repos\\bloggie\\CodePulse.API.csproj": {
+    "C:\\Users\\Khumeren\\source\\repos\\bloggie2.0(18-10-23)\\CodePulse.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Khumeren\\source\\repos\\bloggie\\CodePulse.API.csproj",
+        "projectUniqueName": "C:\\Users\\Khumeren\\source\\repos\\bloggie2.0(18-10-23)\\CodePulse.API.csproj",
         "projectName": "CodePulse.API",
-        "projectPath": "C:\\Users\\Khumeren\\source\\repos\\bloggie\\CodePulse.API.csproj",
+        "projectPath": "C:\\Users\\Khumeren\\source\\repos\\bloggie2.0(18-10-23)\\CodePulse.API.csproj",
         "packagesPath": "C:\\Users\\Khumeren\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Khumeren\\source\\repos\\bloggie\\obj\\",
+        "outputPath": "C:\\Users\\Khumeren\\source\\repos\\bloggie2.0(18-10-23)\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Khumeren\\AppData\\Roaming\\NuGet\\NuGet.Config",
