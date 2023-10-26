@@ -49,7 +49,8 @@ namespace CodePulse.API.Repositories.Implementation
 
         public async Task<Categories?> DeleteAsync(Guid Id)
         {
-           var existingCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == Id);
+
+          var existingCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == Id);
            
            if (existingCategory != null) { 
                 dbContext.Categories.Remove(existingCategory);

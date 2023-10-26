@@ -155,11 +155,11 @@ namespace CodePulse.API.Controllers
     // GET : {apiBaseUrl}/api/blogposts/{id}
 
     [HttpGet("{Id:guid}")] // removed space could be error?
-    public async Task <IActionResult> GetBlogpost(Guid Id)
+    public async Task<IActionResult> GetBlogpost(Guid Id)
     {
       var existingBlogPost = await blogpostRepository.GetBlogPostById(Id);
 
-      if(existingBlogPost is null)
+      if (existingBlogPost is null)
       {
         return NotFound("This id couldnt be found in blogpost tables");
       };
@@ -185,6 +185,106 @@ namespace CodePulse.API.Controllers
       };
 
       return Ok(response);
-      }
     }
+
+    // PUT : {apiBaseUrl}/api/blogposts/{id}
+    [HttpPut("{Id:guid}")]
+    public async Task<IActionResult> UpdateBlogpost (Guid Id, UpdateBlogPostRequestDto request)
+    {
+      // init a domain model first, convert to dto type later
+
+      var newBlogpost = new BlogPost
+      {
+        Id = Id,
+        Title = request.Title,
+        ShortDescription = request.ShortDescription,
+        Content = request.Content,
+        FeaturedImageUrl = request.FeaturedImageUrl,
+        UrlHandle = request.UrlHandle,
+        PublishedDate = request.PublishedDate,
+        Author = request.Author,
+        IsVisible = request.IsVisible,
+        Categories = new List<Categories>(),
+      };
+
+      // create for each loop to iterate through db to identify if they are and add them back to newBlogpost
+      foreach (var categoryGuid in request.Categories)
+      {
+        var existingCategory = await categoryRepository.GetCategoryById(categoryGuid);
+
+        if (existingCategory != null)
+        {
+          newBlogpost.Categories.Add(existingCategory);
+        }
+
+        if (existingCategory == null)
+        {
+          return BadRequest("Couldnt find id in categories row");
+        }
+
+      };
+
+      var updatedBlogpost = await blogpostRepository.UpdateBlogpostAsync(newBlogpost);
+
+      if (updatedBlogpost == null)
+      {
+        return NotFound("Couldnt hit repo, could be db issue or launch settings issue");
+      };
+
+      // convert domain model to dto
+      var responseInDto = new BlogPostDto
+      {
+        Id = newBlogpost.Id,
+        Title = newBlogpost.Title,
+        ShortDescription = newBlogpost.ShortDescription,
+        Content = newBlogpost.Content,
+        FeaturedImageUrl = newBlogpost.FeaturedImageUrl,
+        UrlHandle = newBlogpost.UrlHandle,
+        PublishedDate = newBlogpost.PublishedDate,
+        Author = newBlogpost.Author,
+        IsVisible = newBlogpost.IsVisible,
+        Categories = newBlogpost.Categories.Select(x => new CategoryDto
+        {
+          Id = x.Id,
+          Name = x.Name,
+          UrlHandle = x.UrlHandle,
+        }).ToList(),
+      };
+      return Ok(responseInDto);
+    }
+
+    // DELETE : {apiBaseurl}/api/blogposts{id}
+    [HttpDelete("{Id:guid}")]
+    public async Task<IActionResult> DeleteBlogpost (Guid Id)
+    {
+      var delBlogpost = await blogpostRepository.DeleteBlogpostAsync(Id);
+      if (delBlogpost == null)
+      {
+        return NotFound("Couldnt delete as corresponding data with that id wasnt found! either it was deleted or never was there");
+      }
+
+      var response = new BlogPostDto
+      {
+        Id = delBlogpost.Id,
+        Title = delBlogpost.Title,
+        ShortDescription = delBlogpost.ShortDescription,
+        Content = delBlogpost.Content,
+        FeaturedImageUrl = delBlogpost.FeaturedImageUrl,
+        UrlHandle = delBlogpost.UrlHandle,
+        PublishedDate = delBlogpost.PublishedDate,
+        Author = delBlogpost.Author,
+        IsVisible = delBlogpost.IsVisible,
+
+        // remove this if you dot want to load categories, remove include in your repository as well
+        Categories = delBlogpost.Categories.Select(x => new CategoryDto
+        {
+          Id = x.Id,
+          Name = x.Name,
+          UrlHandle = x.UrlHandle,
+        }).ToList(),
+      };
+      return Ok(response);
+    }
+
+  }
   }
