@@ -78,8 +78,6 @@ namespace CodePulse.API.Controllers
         }
 
 
-
-
         // http://localhost:7179/api/categories/{Guid} , https://localhost:7100/api/Categories/d9641376-1e00-4a05-b2bd-08dbc6fca003
         // shorthand for FromRoute, no need to add it in the param then
         [HttpGet("{Id:guid}")]
