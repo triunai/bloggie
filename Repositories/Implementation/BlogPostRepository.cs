@@ -9,6 +9,7 @@ namespace CodePulse.API.Repositories.Implementation
   {
 
     // declare dbContext to perform db operations first and then inject it into ctor
+    // ensure everything has async
     private readonly ApplicationDbContext dbContext;
 
     public BlogPostRepository( ApplicationDbContext dbContext)
@@ -73,6 +74,11 @@ namespace CodePulse.API.Repositories.Implementation
         return null;
       }
 
+    }
+
+    public async Task<BlogPost?> GetByUrlHandleAsync(string urlHandle)
+    {
+      return await dbContext.BlogPost.Include( x => x.Categories).FirstOrDefaultAsync(x => x.UrlHandle == urlHandle);
     }
   }
 }

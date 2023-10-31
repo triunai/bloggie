@@ -26,6 +26,41 @@ namespace CodePulse.API.Controllers
       this.blogpostRepository = blogpostRepository;
       this.categoryRepository = categoryRepository;
     }
+
+    // GET: [apiBaseUrl]/api/blogposts/{urlHandle}
+    [HttpGet("{urlHandle}")]
+    public async Task<IActionResult> GetBlogPostByUrl(string urlHandle)
+    {
+      // get blogpost details from repo
+      var currentBlogpost = await blogpostRepository.GetByUrlHandleAsync(urlHandle);
+      if (currentBlogpost is null)
+      {
+        return NotFound("This id couldnt be found in blogpost tables");
+      };
+      // initialize dto object to store data
+      var response = new BlogPostDto
+      {
+        Id = currentBlogpost.Id,
+        Title = currentBlogpost.Title,
+        ShortDescription = currentBlogpost.ShortDescription,
+        Content = currentBlogpost.Content,
+        FeaturedImageUrl = currentBlogpost.FeaturedImageUrl,
+        UrlHandle = currentBlogpost.UrlHandle,
+        PublishedDate = currentBlogpost.PublishedDate,
+        Author = currentBlogpost.Author,
+        IsVisible = currentBlogpost.IsVisible,
+
+        Categories = currentBlogpost.Categories.Select(x => new CategoryDto
+        {
+          Id = x.Id,
+          Name = x.Name,
+          UrlHandle = x.UrlHandle,
+        }).ToList(),
+      };
+
+      return Ok(response);
+    }
+
     // POST: [apiBaseUrl]/api/blogposts
     [HttpPost]
     public async Task<IActionResult> CreateBlogPost([FromBody] CreateBlogPostRequestDto request)
@@ -115,9 +150,6 @@ namespace CodePulse.API.Controllers
     {
       // fetch categories first using repo method
       var blogposts = await blogpostRepository.GetAllBlogpostsAsync();
-
-
-
 
       // instantize an empty list to hold the response data from ur async method
       var response = new List<BlogPostDto>();
