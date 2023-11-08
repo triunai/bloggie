@@ -74,7 +74,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
   {
     options.TokenValidationParameters = new TokenValidationParameters // define how tokens should ve validated
     {
-      AuthenticationType = "Jwt",
+      AuthenticationType = "Jwt", //type of authentication
       ValidateIssuer = true, // ensures token issuer is trusted
       ValidateAudience = true, // ensures token is intended for that application 
       ValidateLifetime = true, // checks if token hasnt expired

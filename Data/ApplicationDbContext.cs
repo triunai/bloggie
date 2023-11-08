@@ -11,8 +11,8 @@ namespace CodePulse.API.Data
         }
 
         // business domain models
-        public DbSet<BlogPost> BlogPost { get; set; }
-        public DbSet<Categories> Categories { get; set; }
-        public DbSet<BlogImage> BlogImages { get; set; } 
-    }
+        public DbSet<BlogPost> BlogPost { get; set; } // communicates with blogpost table
+        public DbSet<Categories> Categories { get; set; } // communicates with categories table
+        public DbSet<BlogImage> BlogImages { get; set; } // communicates with blogimages
+    } 
 }

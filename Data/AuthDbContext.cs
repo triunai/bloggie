@@ -17,8 +17,8 @@ namespace CodePulse.API.Data
       base.OnModelCreating(builder);
 
       // create reader and writer role
-      var readerRoleId = "51a65cfe-5ed3-46da-8103-44bbc580843a";
-      var writerRoleId = "d2f3434d-319c-41df-8223-7c594f064594";
+      var readerRoleId = "51a65cfe-5ed3-46da-8103-44bbc580843a"; // <--- check this in gpt if it should be constant
+      var writerRoleId = "d2f3434d-319c-41df-8223-7c594f064594"; // <--- check this in gpt if it should be constant
 
       // define roles , reader and writer
       var roles = new List<IdentityRole>
