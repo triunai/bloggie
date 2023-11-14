@@ -2,6 +2,7 @@ using CodePulse.API.Data;
 using CodePulse.API.Models.Domain;
 using CodePulse.API.Models.DTO;
 using CodePulse.API.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,6 +55,7 @@ namespace CodePulse.API.Controllers
         // GET method (action) to get all category
         // /api/categories
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllCategories()
         {
             // fetching all categories from database using our domain model (remember how api communicates with db using domain model)
@@ -101,8 +103,11 @@ namespace CodePulse.API.Controllers
             return Ok(response); // 200 + response
         }
 
+
+
         // Put  method  http://localhost:7179/api/categories/{Guid}
         [HttpPut("{Id:guid}")]
+
         public async Task<IActionResult> UpdateCategory(Guid Id, UpdateCategoryRequestDto request)
         {
             // convert DTO to domain model type, convert this later into DTO type to abstract
@@ -132,6 +137,7 @@ namespace CodePulse.API.Controllers
 
             return Ok(response);
         }
+
 
 
         //delete method :  http://localhost:7179/api/categories/{id}

@@ -6,7 +6,7 @@ namespace CodePulse.API.Data
 {
   public class AuthDbContext: IdentityDbContext // uses the nuget package we just installed in dependencies
   {
-    public AuthDbContext(DbContextOptions options) : base(options)
+    public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
     {
       // reader role only to let people read, ONLY GET operatiosn
       // writer is for admin , post get etc
