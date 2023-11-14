@@ -3,6 +3,7 @@ using CodePulse.API.Models.Domain;
 using CodePulse.API.Models.DTO;
 using CodePulse.API.Repositories.Implementation;
 using CodePulse.API.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,8 +13,6 @@ namespace CodePulse.API.Controllers
   [ApiController]
   public class BlogPostController : ControllerBase
   {
-
-
     //private readonly fields
     private readonly IBlogPostRepository blogpostRepository;
     private readonly ICategoryRepository categoryRepository;
@@ -63,6 +62,7 @@ namespace CodePulse.API.Controllers
 
     // POST: [apiBaseUrl]/api/blogposts
     [HttpPost]
+    [Authorize(Roles = "Writer")]
     public async Task<IActionResult> CreateBlogPost([FromBody] CreateBlogPostRequestDto request)
     {
       // Inline Validation (Optional but recommended)
@@ -221,6 +221,7 @@ namespace CodePulse.API.Controllers
 
     // PUT : {apiBaseUrl}/api/blogposts/{id}
     [HttpPut("{Id:guid}")]
+    [Authorize(Roles = "Writer")]
     public async Task<IActionResult> UpdateBlogpost (Guid Id, UpdateBlogPostRequestDto request)
     {
       // init a domain model first, convert to dto type later
@@ -287,6 +288,7 @@ namespace CodePulse.API.Controllers
 
     // DELETE : {apiBaseurl}/api/blogposts{id}
     [HttpDelete("{Id:guid}")]
+    [Authorize(Roles = "Writer")]
     public async Task<IActionResult> DeleteBlogpost (Guid Id)
     {
       var delBlogpost = await blogpostRepository.DeleteBlogpostAsync(Id);

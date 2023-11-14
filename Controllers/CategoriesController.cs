@@ -25,6 +25,7 @@ namespace CodePulse.API.Controllers
         
         // POST method to create a category
         [HttpPost]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateCategory([FromBody]CreateCategoryRequestDto request)
         {
             // creating a new domain model with dto values
@@ -55,7 +56,6 @@ namespace CodePulse.API.Controllers
         // GET method (action) to get all category
         // /api/categories
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetAllCategories()
         {
             // fetching all categories from database using our domain model (remember how api communicates with db using domain model)
@@ -107,6 +107,7 @@ namespace CodePulse.API.Controllers
 
         // Put  method  http://localhost:7179/api/categories/{Guid}
         [HttpPut("{Id:guid}")]
+        [Authorize(Roles = "Writer")]
 
         public async Task<IActionResult> UpdateCategory(Guid Id, UpdateCategoryRequestDto request)
         {
@@ -142,6 +143,7 @@ namespace CodePulse.API.Controllers
 
         //delete method :  http://localhost:7179/api/categories/{id}
         [HttpDelete("{Id:guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteCategory(Guid Id)
         {
             var category = await categoryRepository.DeleteAsync(Id);
