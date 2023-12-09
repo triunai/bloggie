@@ -17,7 +17,7 @@ namespace CodePulse.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -34,7 +34,7 @@ namespace CodePulse.API.Migrations
 
                     b.HasIndex("CategoriesId");
 
-                    b.ToTable("BlogPostCategories");
+                    b.ToTable("BlogPostCategories", (string)null);
                 });
 
             modelBuilder.Entity("CodePulse.API.Models.Domain.BlogImage", b =>
@@ -64,7 +64,7 @@ namespace CodePulse.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BlogImages");
+                    b.ToTable("BlogImages", (string)null);
                 });
 
             modelBuilder.Entity("CodePulse.API.Models.Domain.BlogPost", b =>
@@ -105,7 +105,7 @@ namespace CodePulse.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BlogPost");
+                    b.ToTable("BlogPost", (string)null);
                 });
 
             modelBuilder.Entity("CodePulse.API.Models.Domain.Categories", b =>
@@ -124,7 +124,7 @@ namespace CodePulse.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("BlogPostCategories", b =>

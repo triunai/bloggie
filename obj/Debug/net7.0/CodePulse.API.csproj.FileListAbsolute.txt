@@ -317,3 +317,4 @@ C:\Users\Khumeren\source\repos\bloggie2.0(18-10-23)\bin\Debug\net7.0\Microsoft.A
 C:\Users\Khumeren\source\repos\bloggie2.0(18-10-23)\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\Khumeren\source\repos\bloggie2.0(18-10-23)\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Khumeren\source\repos\bloggie2.0(18-10-23)\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\Khumeren\source\repos\bloggie2.0(18-10-23)\obj\Debug\net7.0\CodePulse.API.sourcelink.json

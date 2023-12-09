@@ -32,17 +32,17 @@ namespace CodePulse.API.Repositories.Implementation
 
         public async Task<Categories?> UpdateAsync(Categories newCategory)
         {
-           var matchingCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == newCategory.Id);
+           var existinggCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == newCategory.Id);
 
-            if (matchingCategory != null)
+            if (existinggCategory != null)
             {
                 // ALTERNATE IMPLEMENTATION
                 //matchingCategory.Name = category.Name;
                 //matchingCategory.UrlHandle = category.UrlHandle
 
-                dbContext.Entry(matchingCategory).CurrentValues.SetValues(newCategory);
+                dbContext.Entry(existinggCategory).CurrentValues.SetValues(newCategory);
                 await dbContext.SaveChangesAsync();
-                return matchingCategory;
+                return existinggCategory;
             }
                 return null;          
         }

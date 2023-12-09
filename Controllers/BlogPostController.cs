@@ -6,6 +6,8 @@ using CodePulse.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using System.Text.Json;
 
 namespace CodePulse.API.Controllers
 {
@@ -55,7 +57,9 @@ namespace CodePulse.API.Controllers
           Name = x.Name,
           UrlHandle = x.UrlHandle,
         }).ToList(),
-      };
+
+
+    };
 
       return Ok(response);
     }
@@ -66,15 +70,15 @@ namespace CodePulse.API.Controllers
     public async Task<IActionResult> CreateBlogPost([FromBody] CreateBlogPostRequestDto request)
     {
       // Inline Validation (Optional but recommended)
+      if (request == null)
+      {
+        return BadRequest("Invalid blog post data");
+      }
       if (string.IsNullOrEmpty(request.Title) || string.IsNullOrEmpty(request.ShortDescription))
       {
         return BadRequest("Title and Short Description are required.");
       }
       // be elegant, be disciplined
-      if (request == null)
-      {
-        return BadRequest("Invalid blog post data");
-      }
 
       try
       {
@@ -131,7 +135,9 @@ namespace CodePulse.API.Controllers
               Name = x.Name,
               UrlHandle = x.UrlHandle,
             }).ToList(),
-          };
+        };
+
+
 
           return Ok(abstractedResponse); //200 success
         }
@@ -140,7 +146,7 @@ namespace CodePulse.API.Controllers
       {
         return StatusCode(500, $"An error occurred: {ex.Message}");
       }
-      return Unauthorized(request);
+      return BadRequest(request);
     }
 
 

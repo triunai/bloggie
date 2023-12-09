@@ -5,6 +5,8 @@ using CodePulse.API.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+
 
 
 namespace CodePulse.API.Controllers
@@ -46,6 +48,7 @@ namespace CodePulse.API.Controllers
                 Id = category.Id,
                 Name = request.Name,
                 UrlHandle = request.UrlHandle
+
             };
 
 
@@ -104,7 +107,6 @@ namespace CodePulse.API.Controllers
         }
 
 
-
         // Put  method  http://localhost:7179/api/categories/{Guid}
         [HttpPut("{Id:guid}")]
         [Authorize(Roles = "Writer")]
@@ -141,7 +143,7 @@ namespace CodePulse.API.Controllers
 
 
 
-        //delete method :  http://localhost:7179/api/categories/{id}
+        // delete method :  http://localhost:7179/api/categories/{id}
         [HttpDelete("{Id:guid}")]
         [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteCategory(Guid Id)
